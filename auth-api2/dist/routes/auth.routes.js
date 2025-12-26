@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const auth_controller_1 = require("../controllers/auth.controller");
+const validate_middleware_1 = require("../middeleware/validate.middleware");
+const auth_schema_1 = require("../schemas/auth.schema");
+const asyncHandler_1 = require("../middeleware/asyncHandler");
+const auth_controller_2 = require("../controllers/auth.controller");
+const auth_schema_2 = require("../schemas/auth.schema");
+const auth_middleware_1 = require("../middeleware/auth.middleware");
+const auth_controller_3 = require("../controllers/auth.controller");
+const router = (0, express_1.Router)();
+router.post("/register", (0, validate_middleware_1.validate)(auth_schema_1.registerSchema), (0, asyncHandler_1.asyncHandler)(auth_controller_1.registerController));
+router.post("/login", (0, validate_middleware_1.validate)(auth_schema_2.loginSchema), (0, asyncHandler_1.asyncHandler)(auth_controller_2.loginController));
+router.get("/me", auth_middleware_1.authMiddleware, (0, asyncHandler_1.asyncHandler)(auth_controller_3.meController));
+exports.default = router;
